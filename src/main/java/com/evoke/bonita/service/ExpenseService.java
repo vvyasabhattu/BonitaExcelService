@@ -8,6 +8,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,21 +32,8 @@ public class ExpenseService {
 					DBConstants.GET_DATA_BASE_PASSWORD);
 			PreparedStatement ps = conn.prepareStatement("select * from USMUFG order by caseId desc");
 			resultSet = ps.executeQuery();
-			// setting query input'sGET_ENTITY
-			ResultSetMetaData rsMetaData = resultSet.getMetaData();
-			int columnCount = rsMetaData.getColumnCount();
-			if (resultSet != null) {
-				Map<String, Object> requestMap = new HashMap<String, Object>();
-				while (resultSet.next()) {
-
-					for (int i = 0; i < columnCount; i++) {
-						requestMap.put(rsMetaData.getColumnName(i + 1), resultSet.getObject(i + 1));
-						listOfFiles.add(requestMap);
-					}
-					System.out.println("requestMap:::" + requestMap);
-				}
-
-			}
+			ResultSetMetaData rsmd = resultSet.getMetaData();
+			listOfFiles = convertResultSetToList(rsmd, resultSet);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +54,46 @@ public class ExpenseService {
 		return listOfFiles;
 	}
 	
+	private List<Map<String, Object>>  convertResultSetToList(ResultSetMetaData rsmd, ResultSet resultSet)
+	{
+		int colCount = 1;
+		int rowIndex = 0;
+		Object columnObject = null;
+		List<Object> rowData = null;
+		Map<String, Object> interMap = null;
+		List<Map<String, Object>> finalList = new LinkedList<>();
+		
+		try
+		{
+			while (resultSet.next())
+			{
+				rowIndex++;
+				colCount = 1;
+				rowData = new ArrayList<>();
 	
+				for (int i = 1; i <= rsmd.getColumnCount(); i++)
+				{
+					rowData.add(resultSet.getObject(i));
+				}
+				interMap = new LinkedHashMap();
+				for (int colIndex = 0; colIndex < rsmd.getColumnCount(); colIndex++)
+				{
+					columnObject = rowData.get(colIndex);
+					if (columnObject != null)
+					{
+						interMap.put(rsmd.getColumnLabel(colCount), columnObject);
+					}
+					
+					colCount++;
+				}
+				finalList.add(interMap);
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return finalList;
+	}
 	public List<Map<String, Object>> getExpenseData(Long parentCaseId) {
 		ResultSet resultSet = null;
 		Connection conn = null;
@@ -75,24 +103,11 @@ public class ExpenseService {
 			Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
 			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
 					DBConstants.GET_DATA_BASE_PASSWORD);
-			PreparedStatement ps = conn.prepareStatement("select * from USMUFG where parentCaseId=?");
+			PreparedStatement ps = conn.prepareStatement("select * from ExpenseReport where parentCaseId=?");
 			ps.setLong(1, parentCaseId);
 			resultSet = ps.executeQuery();
-			// setting query input'sGET_ENTITY
-			ResultSetMetaData rsMetaData = resultSet.getMetaData();
-			int columnCount = rsMetaData.getColumnCount();
-			if (resultSet != null) {
-				Map<String, Object> requestMap = new HashMap<String, Object>();
-				while (resultSet.next()) {
-
-					for (int i = 0; i < columnCount; i++) {
-						requestMap.put(rsMetaData.getColumnName(i + 1), resultSet.getObject(i + 1));
-						listOfFiles.add(requestMap);
-					}
-					System.out.println("requestMap:::" + requestMap);
-				}
-
-			}
+			ResultSetMetaData rsmd = resultSet.getMetaData();
+			listOfFiles = convertResultSetToList(rsmd, resultSet);
 
 		} catch (Exception e) {
 			e.printStackTrace();
