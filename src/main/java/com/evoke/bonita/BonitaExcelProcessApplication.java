@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.evoke.bonita.property.FileStorageProperties;
 
@@ -14,6 +15,7 @@ import com.evoke.bonita.property.FileStorageProperties;
 		FileStorageProperties.class
 })
 @EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration.class})
+@EnableScheduling
 public class BonitaExcelProcessApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

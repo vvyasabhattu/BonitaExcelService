@@ -25,7 +25,61 @@ public class DataBaseService {
 	@Value("${bonita.env}")
 	private String env;
 
+	public void createUSMUFG(long recordCount, String fileName, long caseId, String startDate){
+		Connection conn = null;
+
+		try {
+			////Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
+					DBConstants.GET_DATA_BASE_PASSWORD);
+
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO USMUFG (recordCount, fileName, startDate, createdBy, caseId) VALUES (?,?,?,?,?)");
+			ps.setLong(1, recordCount);
+			ps.setString(2, fileName);
+			ps.setString(3, startDate);
+			ps.setString(4, "System");
+			ps.setLong(5, caseId);
+			
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
+	public void updateUSMUFG(long processedCount, long caseId, String endDate, String timeDifference){
+		Connection conn = null;
+
+		try {
+			////Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
+					DBConstants.GET_DATA_BASE_PASSWORD);
+
+			PreparedStatement ps = conn.prepareStatement("UPDATE USMUFG set processedCount = ?, endDate = ?, timeDifference = ? WHERE caseId = ?");
+			ps.setLong(1, processedCount);
+			ps.setString(2, endDate);
+			ps.setString(3, timeDifference);
+			ps.setLong(4, caseId);
+			
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public void insertFileTrackerToWorkFLow(String fileName, String caseId, String documentType,
 			String documentOrginated, String path) 
