@@ -49,41 +49,40 @@ public class USMUFGService {
 		long caseIdRandom = getRandomInteger(10, 100000);
 		sourcePathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//ExpenseReport.xlsx";
 		destPathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//ProcessedFiles";
-		List<Map<String, Object>> excelDataListFinal = readFromExcel(sourcePathStr, "Sheet1");
-		System.out.println(" Excel Data: "+excelDataListFinal.toString());
 		Path sourcePath = Paths.get(sourcePathStr);
 		Path destPath = Paths.get(destPathStr);
-		
-		SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")	;
-		String startDate = sdf.format(new Date());
-		Date stDate = new Date();
-		
-		if(excelDataListFinal.size() > 0) {
-			databaseService.createUSMUFG(excelDataListFinal.size(), new File(sourcePathStr).getName(), caseIdRandom, startDate);
-			for (Map<String, Object> oneRecord: excelDataListFinal) {
-				ExpenseBean eb = new ExpenseBean();
-				eb.setParentCaseId(caseIdRandom);
-				eb.setAmount(new Double(oneRecord.get("AMOUNT").toString()));
-				eb.setEmpName(oneRecord.get("EMP NAME").toString());
-				eb.setEmpId(oneRecord.get("EMP ID").toString());
-				bonitaHandlerService.createBonitaCase("", eb);
-			}
-			String endDate = sdf.format(new Date());
-			Date edDate = new Date();
-			long difference_In_Time = edDate.getTime() - stDate.getTime();
-			long difference_In_Minutes = (difference_In_Time / (1000 * 60)) % 60;
-			databaseService.updateUSMUFG(excelDataListFinal.size(), caseIdRandom, endDate, difference_In_Minutes+"");
-		}
-		
 		if(Files.exists(sourcePath)) {
+			List<Map<String, Object>> excelDataListFinal = readFromExcel(sourcePathStr, "Sheet1");
+			System.out.println(" Excel Data: "+excelDataListFinal.toString());
+			
+			
+			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")	;
+			String startDate = sdf.format(new Date());
+			Date stDate = new Date();
+			
+			if(excelDataListFinal.size() > 0) {
+				databaseService.createUSMUFG(excelDataListFinal.size(), new File(sourcePathStr).getName(), caseIdRandom, startDate);
+				for (Map<String, Object> oneRecord: excelDataListFinal) {
+					ExpenseBean eb = new ExpenseBean();
+					eb.setParentCaseId(caseIdRandom);
+					eb.setAmount(new Double(oneRecord.get("AMOUNT").toString()));
+					eb.setEmpName(oneRecord.get("EMP NAME").toString());
+					eb.setEmpId(oneRecord.get("EMP ID").toString());
+					bonitaHandlerService.createBonitaCase("", eb);
+				}
+				String endDate = sdf.format(new Date());
+				Date edDate = new Date();
+				long difference_In_Time = edDate.getTime() - stDate.getTime();
+				long difference_In_Minutes = (difference_In_Time / (1000 * 60)) % 60;
+				databaseService.updateUSMUFG(excelDataListFinal.size(), caseIdRandom, endDate, difference_In_Minutes+"");
+			}
+			
 			try {
 				Files.move (sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
 	}
 		
 	private long getRandomInteger(int maximum, int minimum){ 
