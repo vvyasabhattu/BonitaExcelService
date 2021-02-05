@@ -25,8 +25,8 @@ public class ExpenseService {
 
 		List<Map<String, Object>> listOfFiles = new ArrayList<Map<String, Object>>();
 		try {
-		//	Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
-			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_DRIVER, DBConstants.GET_DATA_BASE_USER,
+		Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
 					DBConstants.GET_DATA_BASE_PASSWORD);
 			PreparedStatement ps = conn.prepareStatement("select * from USMUFG order by caseId desc");
 			resultSet = ps.executeQuery();
@@ -72,8 +72,8 @@ public class ExpenseService {
 
 		List<Map<String, Object>> listOfFiles = new ArrayList<Map<String, Object>>();
 		try {
-		//	Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
-			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_DRIVER, DBConstants.GET_DATA_BASE_USER,
+			Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
 					DBConstants.GET_DATA_BASE_PASSWORD);
 			PreparedStatement ps = conn.prepareStatement("select * from USMUFG where parentCaseId=?");
 			ps.setLong(1, parentCaseId);
