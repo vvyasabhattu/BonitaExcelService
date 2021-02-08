@@ -48,13 +48,12 @@ public class USMUFGService {
 	public void processExcelData() {
 		long caseIdRandom = getRandomInteger(10, 100000);
 		sourcePathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//ExpenseReport.xlsx";
-		destPathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//ProcessedFiles";
+		destPathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//Processed//ExpenseReport.xlsx";
 		Path sourcePath = Paths.get(sourcePathStr);
 		Path destPath = Paths.get(destPathStr);
 		if(Files.exists(sourcePath)) {
 			List<Map<String, Object>> excelDataListFinal = readFromExcel(sourcePathStr, "Sheet1");
 			System.out.println(" Excel Data: "+excelDataListFinal.toString());
-			
 			
 			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")	;
 			String startDate = sdf.format(new Date());
