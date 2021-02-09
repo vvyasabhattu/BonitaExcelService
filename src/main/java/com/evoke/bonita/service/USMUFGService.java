@@ -55,7 +55,7 @@ public class USMUFGService {
 			List<Map<String, Object>> excelDataListFinal = readFromExcel(sourcePathStr, "Sheet1");
 			System.out.println(" Excel Data: "+excelDataListFinal.toString());
 			
-			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")	;
+			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS")	;
 			String startDate = sdf.format(new Date());
 			Date stDate = new Date();
 			
@@ -67,7 +67,9 @@ public class USMUFGService {
 					eb.setAmount(new Double(oneRecord.get("AMOUNT").toString()));
 					eb.setEmpName(oneRecord.get("EMP NAME").toString());
 					eb.setEmpId(oneRecord.get("EMP ID").toString());
+					//TODO: start-date
 					bonitaHandlerService.createBonitaCase("", eb);
+					//TODO: end-date
 				}
 				String endDate = sdf.format(new Date());
 				Date edDate = new Date();
