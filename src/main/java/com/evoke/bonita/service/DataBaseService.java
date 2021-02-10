@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,37 @@ public class DataBaseService {
 			ps.setString(3, startDate);
 			ps.setString(4, "System");
 			ps.setLong(5, caseId);
+			
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void createExpenseReport(JSONObject paramsMap){
+		Connection conn = null;
+
+		try {
+			////Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
+					DBConstants.GET_DATA_BASE_PASSWORD);
+
+			PreparedStatement ps = conn.prepareStatement(
+					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate) values (?,?,?,?,?,?,?)");
+			ps.setString(1, paramsMap.get("parentCaseId").toString());
+			ps.setString(2, paramsMap.get("caseId").toString());
+			ps.setString(3, paramsMap.get("empId").toString());
+			ps.setString(4, paramsMap.get("amount").toString());
+			ps.setString(5, paramsMap.get("empName").toString());
+			ps.setString(6, paramsMap.get("startDate").toString());
+			ps.setString(7, paramsMap.get("endDate").toString());
 			
 			ps.executeUpdate();
 

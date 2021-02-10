@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -44,7 +45,7 @@ public class USMUFGService {
 	@Autowired
 	private DataBaseService databaseService;
 	
-	@Scheduled(fixedRate = 60000)
+	@Scheduled(fixedRate = 300000)
 	public void processExcelData() {
 		long caseIdRandom = getRandomInteger(10, 100000);
 		sourcePathStr = "C://Users//vvyasabhattu//Desktop//US-MUFG//ExpenseReport.xlsx";
@@ -73,9 +74,9 @@ public class USMUFGService {
 				}
 				String endDate = sdf.format(new Date());
 				Date edDate = new Date();
-				long difference_In_Time = edDate.getTime() - stDate.getTime();
-				long difference_In_Minutes = (difference_In_Time / (1000 * 60)) % 60;
-				databaseService.updateUSMUFG(excelDataListFinal.size(), caseIdRandom, endDate, difference_In_Minutes+"");
+				long difference_In_Time = Math.abs(edDate.getTime() - stDate.getTime());
+				long diffSeconds = difference_In_Time / 1000 ;
+				databaseService.updateUSMUFG(excelDataListFinal.size(), caseIdRandom, endDate, diffSeconds+"");
 			}
 			
 			try {
