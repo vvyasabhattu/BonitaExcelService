@@ -26,7 +26,6 @@ import org.bonitasoft.engine.platform.LoginException;
 import org.bonitasoft.engine.session.APISession;
 import org.bonitasoft.engine.util.APITypeManager;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -58,9 +57,6 @@ public class BonitaHandlerService {
 	@Value("${bonita.process.version}")
 	private String processVersion;
 
-	@Autowired
-	private DataBaseService databaseService;
-	
 	private String getBonitaBaseURL() {
 		String bonitaServerURL;
 		if (env.equalsIgnoreCase("dev")) {
@@ -75,8 +71,6 @@ public class BonitaHandlerService {
 		return bonitaServerURL;
 	}
 
-	
-	
 	@SuppressWarnings("unchecked")
 	public Long createBonitaCase(String username, ExpenseBean expenseBean) {
 		Map<String, String> settings = new HashMap<String, String>();

@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -54,7 +53,7 @@ public class USMUFGService {
 		Path destPath = Paths.get(destPathStr);
 		if(Files.exists(sourcePath)) {
 			List<Map<String, Object>> excelDataListFinal = readFromExcel(sourcePathStr, "Sheet1");
-			System.out.println(" Excel Data: "+excelDataListFinal.toString());
+			//System.out.println(" Excel Data: "+excelDataListFinal.toString());
 			
 			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS")	;
 			String startDate = sdf.format(new Date());
@@ -84,6 +83,9 @@ public class USMUFGService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		else {
+			System.out.println(" Info: No file found for processing! ");
 		}
 	}
 		
