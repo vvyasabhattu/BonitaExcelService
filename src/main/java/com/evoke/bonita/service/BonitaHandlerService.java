@@ -1,9 +1,5 @@
 package com.evoke.bonita.service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,10 +22,10 @@ import org.bonitasoft.engine.platform.LoginException;
 import org.bonitasoft.engine.session.APISession;
 import org.bonitasoft.engine.util.APITypeManager;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.evoke.bonita.constants.DBConstants;
 import com.evoke.bonita.payload.ExpenseBean;
 
 @Component
@@ -56,6 +52,9 @@ public class BonitaHandlerService {
 	
 	@Value("${bonita.process.version}")
 	private String processVersion;
+	
+	@Autowired
+	private DataBaseService dataBaseService;
 
 	private String getBonitaBaseURL() {
 		String bonitaServerURL;
@@ -96,9 +95,7 @@ public class BonitaHandlerService {
 			Long userId = apiSession.getUserId();
 			if (userId > 0) {
 				long processDefinitionId = getProcessDefinitionId(processAPI);
-				
 				JSONObject contract = new JSONObject();
-				
 				contract.put("parentCaseId", expenseBean.getParentCaseId());
 				contract.put("amount", expenseBean.getAmount());
 				contract.put("empId", expenseBean.getEmpId());
@@ -120,7 +117,7 @@ public class BonitaHandlerService {
 					long diff = TimeUnit.MILLISECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 					contract.put("caseTimeDiff", diff);
 					if(caseId > 0) {
-						createExpenseReport(contract);
+						dataBaseService.createExpenseReport(contract);
 					}
 					System.out.println("Case created with id : "+createCase.getRootProcessInstanceId() + " on : "+endDate);
 				}
@@ -138,38 +135,7 @@ public class BonitaHandlerService {
 	}
 	
 	
-	public void createExpenseReport(JSONObject paramsMap){
-		Connection conn = null;
 
-		try {
-			////Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
-			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
-					DBConstants.GET_DATA_BASE_PASSWORD);
-
-			PreparedStatement ps = conn.prepareStatement(
-					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate,caseTimeDiff) values (?,?,?,?,?,?,?,?)");
-			ps.setString(1, paramsMap.get("parentCaseId").toString());
-			ps.setString(2, paramsMap.get("caseId").toString());
-			ps.setString(3, paramsMap.get("empId").toString());
-			ps.setString(4, paramsMap.get("amount").toString());
-			ps.setString(5, paramsMap.get("empName").toString());
-			ps.setString(6, paramsMap.get("startDate").toString());
-			ps.setString(7, paramsMap.get("endDate").toString());
-			ps.setString(8, paramsMap.get("caseTimeDiff").toString());
-			
-			ps.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	
 	/**
 	 * 

@@ -1,0 +1,67 @@
+<header style="background: #32404a;">
+  <div class="container">
+    <div class="top-header">
+      <div class="logo navbar-brand mr-0 mr-md-2">
+        <!-- <a class="navbar-brand" href="#"><img src="assets/images/spg-crsl-rgb-rev@2x.png" alt="logo"
+            title="Crisil logo" /></a> -->
+            <img width="10%" src="https://logonoid.com/images/thumbs/mufg-logo.png" style="
+    width: 25%;">
+      </div>
+      <div class="d-flex align-items-center searchbox"></div>
+      <!-- <div class="d-flex align-items-center searchbox">
+        <div class="btn-menu">
+          <select class="form-control" [(ngModel)]="searchbox.searchFilter">
+            <option value="all">All</option>
+            <option value="mandate_id">Mandate ID</option>
+            <option value="entity_name">Entity Name</option>
+            <option value="institution_name">Institute Name</option>
+            <option value="bd_name">BD</option>
+            <option value="product">Product Name</option>
+            <option value="analyst">Analyst</option>
+            <option value="coordination_case_status">Coordination Case Status</option>
+            <option value="credit_exposure_by_bank">Credit Exposure by Bank</option>
+            <option value="mandate_created_date">Mandate Creation Date</option>
+          </select>
+        </div>
+        <input id="search" type="text" [(ngModel)]="searchWord" placeholder="Search Here" name="search"
+          class="search">
+        <button (click)="doSearch()" class="ml-3 btn-search">
+          <i class="fa fa-search"></i>
+        </button>
+        <kendo-datepicker *ngIf="searchbox.searchFilter == 'mandate_created_date'" [format]="'dd/MM/yyyy'" class="datePicker" [(ngModel)]="searchWord" (ngModelChange)="getDate()">
+        </kendo-datepicker>
+      </div> -->
+      <div class="navbar-right">
+        <ul class="nav" *ngIf="true">
+
+          <!-- <li class="nav-item"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="27"
+                viewBox="0 0 23 27">
+                <g fill="none" fill-rule="evenodd">
+                  <path d="M-3-1h28v28H-3z" />
+                  <path fill="#87878D"
+                    d="M6.595 23.86a1.179 1.179 0 0 0 2.356 0h1a2.18 2.18 0 0 1-2.178 2.177 2.18 2.18 0 0 1-2.178-2.178h1zM7.773 6.5a6.416 6.416 0 0 1 6.409 6.409v6.819c0 .475.388.863.863.863h.5V22.5H0v-1.909h.5a.864.864 0 0 0 .863-.863v-6.819A6.417 6.417 0 0 1 7.773 6.5zm0 1a5.416 5.416 0 0 0-5.41 5.409v6.819c0 .827-.541 1.529-1.288 1.772H14.47a1.866 1.866 0 0 1-1.288-1.772v-6.819A5.416 5.416 0 0 0 7.773 7.5zm11-7.5c2.206 0 4 1.794 4 4s-1.794 4-4 4-4-1.794-4-4 1.794-4 4-4zm0 2c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2z" />
+                </g>
+              </svg>
+            </a></li>
+          <li class="nav-item"><a href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                <g fill="none" fill-rule="evenodd">
+                  <path d="M-3-3h28v28H-3z" />
+                  <path fill="#87878D"
+                    d="M9.833 18h2.334v-2.333H9.833V18zM11 0C4.928 0 0 4.928 0 11s4.928 11 11 11 11-4.928 11-11S17.072 0 11 0zm0 21C5.488 21 1 16.512 1 11S5.488 1 11 1s10 4.488 10 10-4.488 10-10 10zm0-17a4.665 4.665 0 0 0-4.667 4.667h2.334A2.34 2.34 0 0 1 11 6.333a2.34 2.34 0 0 1 2.333 2.334c0 2.333-3.5 2.041-3.5 5.833h2.334c0-2.625 3.5-2.917 3.5-5.833A4.665 4.665 0 0 0 11 4z" />
+                </g>
+              </svg>
+            </a></li> -->
+          <li class="nav-item dropdown" style="padding: 18px 27px;height: 50px;">
+            <a class="nav-link dropdown-toggle" style="display: block;padding:0px;color: #00ffff;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              aria-expanded="false"> {{cookieService.get('userName')}}</a>
+            <div class="dropdown-menu">
+              <!-- <a class="dropdown-item" href="/bonita/login.jsp" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a> -->
+              <button class="dropdown-item" (click)="switchRole()"><i class="fa fa-sign-out"></i> Switch Role </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,53 @@
+<div class="upload-list-main entity-with-errors">
+    <!-- <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th>
+                <span class="arrow-down">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 24 24">
+                        <defs>
+                            <path id="a" d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                            <path id="c" d="M0 0h50v50H0z" />
+                        </defs>
+                        <g fill="none" fill-rule="evenodd">
+                            <mask id="b" fill="#fff">
+                                <use xlink:href="#a" />
+                            </mask>
+                            <g mask="url(#b)">
+                                <use fill="#000" transform="translate(-13 -13)" xlink:href="#c" />
+                            </g>
+                        </g>
+                    </svg>
+                </span>Entities</th>
+            <th></th>
+            <th>Status</th>
+        </tr>
+        <tr *ngFor="let entity of failedMandates; let index = index;">
+            <td>
+            Row Number - {{entity.excelRowNumber}}
+
+                <i aria-hidden="true" class="fa fa-angle-down"></i>
+                <span>{{entity.entityName}} </span>
+                <div [id]="entity.entityName" [ngbCollapse]="!entity.showFlag">
+                    <div class="card">
+                        <div class="card-body">
+                            <strong *ngFor="let errorfields of entity.errorFields">Please check the field with name {{errorfields}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <i class="fa fa-exclamation-triangle" (click)="entity.showFlag = !entity.showFlag" [attr.aria-expanded]="entity.showFlag"
+                    [attr.aria-controls]="entity.entityName"></i>
+            </td>
+        </tr>
+
+    </table> -->
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" *ngFor="let entity of failedMandates; let index = index;">
+            <ngb-panel id="panel-{{index}}" title="Excel Row Number - {{entity.excelRowNumber}}">
+                <ng-template ngbPanelContent>
+                    <strong *ngFor="let errorfields of entity.errorFields">Please check the field with name {{errorfields}}</strong>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+</div>

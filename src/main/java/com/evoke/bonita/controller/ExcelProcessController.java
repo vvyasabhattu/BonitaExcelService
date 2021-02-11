@@ -34,4 +34,9 @@ public class ExcelProcessController {
 		expenseDataMap.put("allMandatesCount", expenseDatData.size());
 		return expenseDataMap;
 	}
+	
+	@GetMapping("updateStatus")
+	public 	void updateStatus(@RequestParam("caseId") Long caseId) {
+		expenseService.updateStatus(caseId);
+	}
 }

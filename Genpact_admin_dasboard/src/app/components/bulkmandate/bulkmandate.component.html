@@ -1,0 +1,134 @@
+<div class="container no-padding">
+
+
+    <div class="top-sec">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">New BulkMandate</li>
+            </ol>
+        </nav>
+
+        <div class="backto-home">
+            <a href="{{backDashboardurl}}">Back to dashboard</a>
+        </div>
+        <div class="row top-bottom">
+            <div class="col-md-6 col-sm-12 col-xs-12 left">
+                <h6>New BulkMandate</h6>
+
+
+                <ul class="new-mandate-detailsid">
+                    <li>
+                        Product Name
+                        <span>{{mandates.mandateMetaData.productName}}</span>
+                    </li>
+                    <li>
+                        Institution Name
+                        <span>{{mandates.mandateMetaData.institutionName}}</span>
+                    </li>
+                    <li>Billing Company
+                        <span>{{mandates.mandateMetaData.billingCompany}}</span>
+                    </li>
+                    <li>Billing Company Contact
+                        <span>{{mandates.mandateMetaData.billingCompanyContact}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 right">
+                <div class="Type-sample-heading">
+                    <ul>
+                        <li>Type of document</li>
+                        <li>Template
+                            <br> (click to download)</li>
+                    </ul>
+                </div>
+                <ul class="upload-sm">
+                    <li>Scanned Mandate </li>
+                    <li>
+                        <a class="" href="">Scanned_Mandate_Template.xls</a>
+                    </li>
+                    <li>
+                        <a class="" href="">Upload the template</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container no-padding">
+
+    <div id="exTab1" class="tabbable-line">
+        <ul class="nav nav-pills nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" (click)="allMandates()" routerLink="allMandates" routerLinkActive="active">All Entities
+                    <span>{{allMandatesCount}} </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="tab" (click)="errorMandates()" routerLink="errorMandates" routerLinkActive="active">Entity with errors -
+                    <span>{{failedMandatesCount}} </span>
+                </a>
+            </li>
+            <!-- routerLink="errorMandates" -->
+
+        </ul>
+        <div class="btn-right-save float-right">
+            <button type="button" [disabled]="failedMandatesCount > 0" class="btn btn-outline-secondary btn-outline-secondary-bgcolor" (click)="createMandates()" [disabled]="!mandates.validFlag">Create </button>
+        </div>
+
+
+
+
+        <!-- <form name="mandate"> -->
+        <div class="tab-content">
+
+            <div id="menu2" class="tab-pane active">
+
+                <div class="panel-wrapper">
+                    <div class="panel-body">
+                        <div class="form-wrap">
+                            <!-- success alert success here -->
+                            <div class="alert-for-success" *ngIf="mandates.validFlag">Voila! no errors. You are good to create mandates.</div>
+                            <!-- Error alert start here -->
+                            <div class="alert-for-error" *ngIf="!mandates.validFlag">Oops! there seems to be errors in the uploaded file. To view the errors go to ‘Error Tab’ or
+                                download the verified file, fix the errors and re-upload to create the mandates</div>
+
+                            <router-outlet></router-outlet>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- </form> -->
+    </div>
+</div>
+
+
+<div class="footer">
+    <div class="container">
+        <ul class="left-copay">
+            <li>© 202 GENPACT LIMITED. ALL RIGHTS RESERVED.</li>
+        </ul>
+        <ul class="left-policies-right">
+            <li><a routerLink="regulatory-disclosure">REGULATORY DISCLOSURES & POLICIES</a></li>
+            <li>
+                <a routerLink="disclaimer">DISCLAIMER</a>
+            </li>
+            <li>
+                <a routerLink="terms-of-use">TERMS OF USE</a>
+            </li>
+            <li>
+                <a routerLink="privacy-notice">PRIVACY NOTICE</a>
+            </li>
+        </ul>
+    </div>
+</div>

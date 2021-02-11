@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ public class DataBaseService {
 
 	@Value("${bonita.env}")
 	private String env;
+	
+	@Autowired
+	private ExpenseService expenseService;
 
 	public void createUSMUFG(long recordCount, String fileName, long caseId, String startDate){
 		Connection conn = null;
@@ -64,7 +68,7 @@ public class DataBaseService {
 					DBConstants.GET_DATA_BASE_PASSWORD);
 
 			PreparedStatement ps = conn.prepareStatement(
-					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate) values (?,?,?,?,?,?,?)");
+					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate,caseTimeDiff) values (?,?,?,?,?,?,?,?)");
 			ps.setString(1, paramsMap.get("parentCaseId").toString());
 			ps.setString(2, paramsMap.get("caseId").toString());
 			ps.setString(3, paramsMap.get("empId").toString());
@@ -72,6 +76,7 @@ public class DataBaseService {
 			ps.setString(5, paramsMap.get("empName").toString());
 			ps.setString(6, paramsMap.get("startDate").toString());
 			ps.setString(7, paramsMap.get("endDate").toString());
+			ps.setString(8, paramsMap.get("caseTimeDiff").toString());
 			
 			ps.executeUpdate();
 
@@ -86,6 +91,7 @@ public class DataBaseService {
 		}
 	}
 	
+	
 	public void updateUSMUFG(long processedCount, long caseId, String endDate, String timeDifference){
 		Connection conn = null;
 
@@ -95,7 +101,7 @@ public class DataBaseService {
 					DBConstants.GET_DATA_BASE_PASSWORD);
 
 			PreparedStatement ps = conn.prepareStatement("UPDATE USMUFG set processedCount = ?, endDate = ?, timeDifference = ? WHERE caseId = ?");
-			ps.setLong(1, processedCount);
+			ps.setLong(1, expenseService.getExpenseData(caseId).size());
 			ps.setString(2, endDate);
 			ps.setString(3, timeDifference);
 			ps.setLong(4, caseId);

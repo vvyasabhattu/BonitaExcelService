@@ -1,0 +1,349 @@
+
+/** new bulk mandate styles **/
+.nb-mandte {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  font-size: 13px;
+  color: #5f5f67;
+}
+.prod-type {
+  font-size: 13px;
+  color: #000;
+  margin-bottom: 20px;
+}
+.prod-type::placeholder{
+  color: #afafb3;
+}
+.cst-create {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-radius: 1px;
+}
+.cst-create:hover {
+  color: white;
+}
+.cust-modelheader {
+  border-bottom: transparent;
+}
+.cust-modelheader h5 {
+  width: 100%;
+}
+.cust-modelheader h5::after {
+  content: '';
+  background: #d8002a;
+  height: 2px;
+  width: 100%;
+  margin-top: 10px;
+  display: block;
+}
+.md-modal {
+  padding: 0 15px;
+}
+.clm-lft p {
+  font-size: 13px;
+  color: #87878d;
+  height: 40px;
+  border-bottom: 1px solid rgba(244, 244, 244, 0.8);
+}
+.lft-brdr {
+  border-right: 1px solid rgba(244, 244, 244, 0.8);
+}
+.clm-sml {
+  color: #d8002a;
+  font-weight: 300;
+  font-size: 8px;
+  display: block;
+}
+.cst-ckbx {
+  margin: 0 8px 8px 0;
+}
+input[checked]{
+  background-color: red;
+}
+.conf-btn {
+  text-align: center;
+  width: 100%;
+  height: 48px;
+  border-radius: 1px;
+  background-color: #d3d3d3;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+/** new style ends **/
+
+
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+  }
+  .lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    margin: -3px 0 0 -3px;
+    z-index: 9999;
+  }
+  .lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+  }
+  .lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+  }
+  .lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+  }
+  .lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+  }
+  .lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+  }
+  .lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+  }
+  .lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+  }
+  .lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+  }
+  @keyframes lds-roller {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .centered {
+    z-index: 9999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: -webkit-translate(-50%, -50%);
+    transform: -moz-translate(-50%, -50%);
+    transform: -ms-translate(-50%, -50%);
+    color: darkred;
+  }
+  #cover-spin {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(187, 177, 177, 0.3);
+    z-index: 99990;
+}
+
+.k-grid {
+  width: 1295px !important;
+}
+
+.k-grid tr.status {
+  background-color: rgba(241, 183, 175, 0.25)!important;
+  }
+
+
+
+
+/* table css starts ends */
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #crsl-dashboard {
+    width: 715px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1024px) {
+  #crsl-dashboard {
+    width: 970px !important;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1198.98px) {
+  #crsl-dashboard {
+    width: 1010px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1279.98px) {
+  #crsl-dashboard {
+    width: 1180px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1365.98px) {
+  #crsl-dashboard {
+    width: 1275px !important;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1399.98px) {
+  #crsl-dashboard {
+    width: 1310px;
+  }
+}
+
+@media (min-width: 1400px) {
+  #crsl-dashboard {
+    width: 1380px !important;
+  }
+}
+
+
+.cst-mdl-footer {
+  display: block;
+  padding: 0 15px;
+}
+.cst-mdlbdy {
+  max-height: 450px;
+  overflow-y: auto
+}
+.btn-bgnone {
+  width:100%;
+  text-align: center;
+}
+
+.cust-ht{
+  max-height:400px;
+  overflow-y:auto;
+}
+
+.entity_link{
+  cursor: pointer;
+}
+.startdateLabel{
+  float: left;
+  width: 48%;
+  color:blue;
+  font-weight: 600;
+}
+.enddateLabel{
+  width: 48%;
+  color: blue;
+  position: relative;
+  left: 10px;
+  font-weight: 600;
+}
+.startdatePicker{
+  float: left;
+  width: 48% !important;
+}
+.enddatePicker{
+  float: left;
+  width: 48% !important;
+  position: relative;
+  left: 10px;
+}
+.clearfix{
+  clear: both
+}
+
+//MIS panel close btn
+.misPanelCloseBtn
+{
+  padding-left:5px; 
+  margin-top:-10px;
+}
+#recentActivities{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#recentActivities td, #recentActivities th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+  font-family: cambria;
+}
+
+#recentActivities tr:nth-child(even){background-color: #f2f2f2;}
+
+#recentActivities tr:hover {background-color: #ddd;}
+
+#recentActivities th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #aaaaaa;
+  color: white;
+  font-size: 14px;
+}
+
+#serverLogs{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#serverLogs td, #serverLogs th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  color: red;
+  font-size: 14px;
+  font-family: cambria;
+}
+
+#serverLogs tr:nth-child(even){background-color: #f2f2f2;}
+
+#serverLogs tr:hover {background-color: #ddd;}
+
+#serverLogs th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: red;
+  color: white;
+}

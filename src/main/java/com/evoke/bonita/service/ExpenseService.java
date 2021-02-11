@@ -126,4 +126,31 @@ public class ExpenseService {
 
 		return listOfFiles;
 	}
+	
+	public List<Map<String, Object>> updateStatus(Long caseId) {
+		Connection conn = null;
+
+		List<Map<String, Object>> listOfFiles = new ArrayList<Map<String, Object>>();
+		try {
+			Class.forName(DBConstants.GET_DATA_BASE_DRIVER);
+			conn = DriverManager.getConnection(DBConstants.GET_DATA_BASE_URL, DBConstants.GET_DATA_BASE_USER,
+					DBConstants.GET_DATA_BASE_PASSWORD);
+			PreparedStatement ps = conn.prepareStatement("update ExpenseReport set caseStatus = 'Completed' where caseId=?");
+			ps.setLong(1, caseId);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+
+			} catch (SQLException e) {
+			}
+		}
+
+		return listOfFiles;
+	}
 }
