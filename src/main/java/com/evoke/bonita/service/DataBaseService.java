@@ -68,7 +68,7 @@ public class DataBaseService {
 					DBConstants.GET_DATA_BASE_PASSWORD);
 
 			PreparedStatement ps = conn.prepareStatement(
-					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate,caseTimeDiff) values (?,?,?,?,?,?,?,?)");
+					"insert into ExpenseReport (parentCaseId,caseId,empId,amount,empName,startDate,endDate,caseTimeDiff,caseStatus) values (?,?,?,?,?,?,?,?,'In Progress')");
 			ps.setString(1, paramsMap.get("parentCaseId").toString());
 			ps.setString(2, paramsMap.get("caseId").toString());
 			ps.setString(3, paramsMap.get("empId").toString());
@@ -77,6 +77,7 @@ public class DataBaseService {
 			ps.setString(6, paramsMap.get("startDate").toString());
 			ps.setString(7, paramsMap.get("endDate").toString());
 			ps.setString(8, paramsMap.get("caseTimeDiff").toString());
+			
 			
 			ps.executeUpdate();
 
